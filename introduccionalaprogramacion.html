@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a la programación</title>
+    <style>
+        /* Estilos generales y variables de color */
+        :root {
+            --bg-color: #191c33;
+            --text-color: #ffffff;
+            --accent-color: #6a0dad;
+            --tag-border-color: #6c8aab;
+            --button-bg-white: #ffffff;
+            --button-text-dark: #191c33;
+            --card-bg-color: #272a44; /* Fondo para tarjetas y módulos */
+            --border-color: #3f4568;
+            --link-hover-color: #3498db;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos del Hero Section */
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+            padding: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .certification-tag {
+            background-color: var(--accent-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            line-height: 1.2;
+        }
+
+        .info-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            border: 1px solid var(--tag-border-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-buy {
+            background-color: var(--button-bg-white);
+            color: var(--button-text-dark);
+            border: none;
+        }
+
+        .btn-buy:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-view {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+        }
+
+        .btn-view:hover {
+            background-color: #ffffff1a;
+            border-color: #ffffff;
+        }
+
+        /* --- Estilos para la sección de Contenidos --- */
+        .contents-section {
+            padding: 4rem 2rem;
+            background-color: var(--bg-color);
+            text-align: center;
+        }
+
+        .contents-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contents-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .module-card {
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .module-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .module-content {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .module-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+
+        .module-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Icono de flecha */
+        .module-card.active .icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="hero-section">
+        <div class="certification-tag">Certificación</div>
+        <h1>Introducción a la programación</h1>
+        <div class="info-tags">
+            <span class="tag">Nivel: iniciante</span>
+            <span class="tag">Programación</span>
+            <span class="tag"> En vivo</span>
+        </div>
+        <div class="buttons-container">
+            <a href="checkout-mercadopago.html" class="btn btn-buy">Comprar</a>
+            <a href="#contents-section" class="btn btn-view">Ver contenidos</a>
+        </div>
+    </main>
+
+    <section id="contents-section" class="contents-section">
+        <div class="contents-container">
+            <h2 class="contents-title">¿Qué vas a aprender?</h2>
+            
+            <div class="module-card" onclick="toggleModule(this)">
+                <div class="module-header">
+                    <h3 class="module-title">Diseño Web: HTML y CSS</h3>
+                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Introducción a HTML y su estructura.</li>
+                        <li>Etiquetas semánticas y la importancia del SEO.</li>
+                        <li>Fundamentos de CSS, selectores y el modelo de caja.</li>
+                        <li>Maquetación de páginas con Flexbox y Grid.</li>
+                        <li>Diseño adaptable (Responsive Design) con Media Queries.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="module-card" onclick="toggleModule(this)">
+                <div class="module-header">
+                    <h3 class="module-title">Programación Imperativa con JavaScript</h3>
+                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Fundamentos de JavaScript: variables, tipos de datos y operadores.</li>
+                        <li>Estructuras de control: condicionales y bucles.</li>
+                        <li>Funciones: declaración, expresiones y flecha.</li>
+                        <li>Manejo de arrays y objetos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="toggleModule(this)">
+                <div class="module-header">
+                    <h3 class="module-title">JavaScript para DOM</h3>
+                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Introducción al DOM (Document Object Model).</li>
+                        <li>Selección y manipulación de elementos HTML.</li>
+                        <li>Manejo de eventos del usuario.</li>
+                        <li>Creación de interacciones dinámicas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="toggleModule(this)">
+                <div class="module-header">
+                    <h3 class="module-title">Diseño UX/UI</h3>
+                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Principios de Diseño de Experiencia de Usuario (UX).</li>
+                        <li>Principios de Diseño de Interfaz de Usuario (UI).</li>
+                        <li>Creación de wireframes y prototipos.</li>
+                        <li>Herramientas de diseño (Figma, Adobe XD).</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        function toggleModule(element) {
+            const content = element.querySelector('.module-content');
+            const icon = element.querySelector('.icon');
+            element.classList.toggle('active');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
