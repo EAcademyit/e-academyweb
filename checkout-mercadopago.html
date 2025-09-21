@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-s  cale=1.0">
+    <title>Checkout - E-Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#000e35] text-white flex flex-col min-h-screen">
+
+    <header class="bg-gray-900 shadow-md">
+        <div class="container mx-auto px-6 py-8 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="img/Logo Cursos/15.png" alt="E-Academy Logo" class="h-10 w-auto">
+                </a>
+            </div>
+            <nav class="flex-grow flex justify-center">
+                <ul class="flex space-x-10 text-white font-medium text-lg">
+                    <li><a href="index.html#inicio" class="hover:text-yellow-400 transition duration-300">Inicio</a></li>
+                    <li><a href="index.html#cursos" class="hover:text-yellow-400 transition duration-300">Cursos</a></li>
+                    <li><a href="index.html#sobre-nosotros" class="hover:text-yellow-400 transition duration-300">Quienes somos</a></li>
+                    <li><a href="index.html#preguntas-frecuentes" class="hover:text-yellow-400 transition duration-300">Preguntas frecuentes</a></li>
+                    <li><a href="index.html#contacto" class="hover:text-yellow-400 transition duration-300">Contacto</a></li>
+                </ul>
+            </nav> 
+        </div>
+    </header>
+
+    <main class="container mx-auto py-16 px-6">
+        <div class="flex flex-col md:flex-row justify-center items-start gap-8">
+            <div class="bg-gray-800 p-6 rounded-xl shadow-xl flex-1 max-w-sm">
+                <h2 class="text-2xl font-bold mb-4">Resumen de la compra</h2>
+                <div class="border-b border-gray-700 pb-4 mb-4">
+                    <p class="text-lg font-semibold">Curso:</p>
+                    <p class="text-gray-300">Introducción a la programación</p>
+                </div>
+                <div class="space-y-2 text-gray-300 border-b border-gray-700 pb-4 mb-4">
+                    <p class="flex justify-between">Valor sin descuento: <span class="line-through">$65000</span></p>
+                    <p class="flex justify-between">Descuento aplicado: <span>25%</span></p>
+                </div>
+                <div class="flex justify-between items-center text-3xl font-bold text-white mt-4">
+                    <p>TOTAL:</p>
+                    <p>$48.750</p>
+                </div>
+
+                <div class="bg-blue-900 text-sm p-3 rounded-lg mt-4">
+                    <p>Importante: El valor final puede variar debido a impuestos y comisiones de la plataforma.</p>
+                </div>
+            </div>
+
+            <div class="flex-1 max-w-sm">
+                <div class="bg-white text-gray-900 p-6 rounded-xl shadow-xl space-y-4">
+                    <h3 class="text-xl font-bold">Métodos de Pago</h3>
+                    <p class="text-sm">Elige cómo quieres pagar:</p>
+                    
+                    <button class="bg-blue-600 text-white font-bold py-3 px-6 rounded-md w-full hover:bg-blue-700 transition duration-300">
+                        Pagar con Tarjeta de Crédito
+                    </button>
+                    
+                    <button class="bg-green-500 text-white font-bold py-3 px-6 rounded-md w-full hover:bg-green-900 transition duration-300">
+                        Pagar con Mercado Pago
+                    </button>
+
+                    <div class="text-center text-sm text-gray-900">
+                        <p>Al hacer clic en "Pagar", serás redirigido a la plataforma de pago.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">&copy; 2025 E-Academy. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

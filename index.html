@@ -1,0 +1,401 @@
+<!-- /index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>E-Academy</title>
+  <style>
+    :root{
+      --brand-navy:#0c1940; --brand-navy-2:#08122c; --brand-navy-3:#0f2342;
+      --brand-cyan:#99cee0; --brand-teal:#318a9f; --brand-accent:#244565;
+      --brand-pink:#a62c96; --brand-blue:#4666ff;
+    }
+    html,body{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .font-poppins{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .dropdown-menu{
+      position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(12px);
+      background:rgba(17,24,39,.98); border:1px solid rgba(255,255,255,.06);
+      padding:1rem; border-radius:.75rem; box-shadow:0 12px 40px rgba(0,0,0,.5);
+      display:flex; gap:2rem; opacity:0; visibility:hidden; transition:all .22s ease; min-width:680px;
+    }
+    .dropdown:hover>.dropdown-menu,.dropdown:focus-within>.dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(6px)}
+    .dropdown-menu a{padding:.25rem 0}
+    details[open]>summary svg{transform:rotate(180deg)}
+    details>summary{list-style:none}
+    details>summary::-webkit-details-marker{display:none}
+
+    /* ====== HERO (con tu fondo) ====== */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 60px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+
+      /* Ruta real según tu captura */
+      background-image: url("img/Logo Cursos/Fondo.png"); /* importante por el espacio en el folder */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .hero-text { max-width: 50%; }
+    .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.3; margin: 0; }
+    .hero .highlight { color: #e500a4; }
+    .hero .highlight-cyan { color: #00d4ff; }
+    .hero .subtext { font-size: 1.1rem; margin: 20px 0; color: #cbd5e1; }
+    .cta-buttons { display: flex; gap: 16px; }
+    .btn { padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
+    .btn-primary { background: #e500a4; color: white; }
+    .btn-primary:hover { background: #b80080; }
+    .btn-secondary { border: 2px solid #00d4ff; color: #00d4ff; }
+    .btn-secondary:hover { background: #00d4ff; color: #0d1b2a; }
+    .hero-img { position: relative; flex-shrink: 0; }
+    .hero-img { flex: 1; display: flex; justify-content: flex-end; }
+    .hero-img img { width: 660px; height: auto; max-width: 100%; }
+
+    /* Responsivo */
+    @media (max-width: 1024px){
+      .hero { gap: 32px; padding: 48px 32px; }
+      .hero h1 { font-size: 2.2rem; line-height: 1.25; }
+    }
+    @media (max-width: 768px){
+      .hero { flex-direction: column; text-align: center; padding: 40px 20px; }
+      .hero-text { max-width: 100%; }
+      .hero-img { justify-content: center; }
+      .cta-buttons { justify-content: center; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body class="bg-[var(--brand-navy)] text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[var(--brand-navy)]/90 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="#inicio" class="flex items-center gap-3">
+          <img src="img/Logo Cursos/Logo.png" alt="E-Academy" class="h-10 w-auto">
+        </a>
+
+        <div class="hidden lg:flex w-full max-w-md mx-6">
+          <label class="relative w-full">
+            <input type="search" placeholder="¿Qué quieres aprender?"
+              class="w-full rounded-full border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm placeholder-white/60 outline-none focus:border-[var(--brand-cyan)] focus:bg-white/10"/>
+            <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-3 top-2.5 h-5 w-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
+          </label>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-6">
+          <div class="relative dropdown">
+            <button class="text-sm font-medium hover:text-[var(--brand-cyan)] transition focus:outline-none">Cursos</button>
+            <ul class="dropdown-menu">
+              <li class="min-w-[200px]">
+                <h3 class="text-[var(--brand-cyan)] font-semibold mb-2">Datos</h3>
+                <a href="datosanalystpython.html" class="block hover:text-[var(--brand-cyan)]">Análisis de datos con Python</a>
+                <a href="dashboard-con-power-bi.html" class="block hover:text-[var(--brand-cyan)]">Dashboard con Power BI</a>
+                <a href="excel-para-analisis-de-datos.html" class="block hover:text-[var(--brand-cyan)]">Excel para análisis de datos</a>
+              </li>
+              <li class="min-w-[200px]">
+                <h3 class="text-pink-400 font-semibold mb-2">Programación</h3>
+                <a href="introduccionalaprogramacion.html" class="block hover:text-[var(--brand-cyan)]">Introducción a programación</a>
+                <a href="python-desde-cero.html" class="block hover:text-[var(--brand-cyan)]">Python desde cero</a>
+                <a href="python-developer.html" class="block hover:text-[var(--brand-cyan)]">Python Developer</a>
+                <a href="back-end-developer.html" class="block hover:text-[var(--brand-cyan)]">Back End Developer</a>
+                <a href="programacion-web.html" class="block hover:text-[var(--brand-cyan)]">Programación Web</a>
+                <a href="full-stack.html" class="block hover:text-[var(--brand-cyan)]">Full Stack</a>
+              </li>
+              <li class="min-w-[200px]">
+                <h3 class="text-red-400 font-semibold mb-2">Soft Skills</h3>
+                <a href="coaching-educativo.html" class="block hover:text-[var(--brand-cyan)]">Coaching Educativo</a>
+                <a href="desarrollo-personal.html" class="block hover:text-[var(--brand-cyan)]">Desarrollo Personal</a>
+                <a href="comunicacion-efectiva.html" class="block hover:text-[var(--brand-cyan)]">Comunicación Efectiva</a>
+                <a href="confeccion-de-cv-efectivo.html" class="block hover:text-[var(--brand-cyan)]">Confección de CV Efectivo</a>
+              </li>
+            </ul>
+          </div>
+          <a href="#opiniones" class="text-sm font-medium hover:text-[var(--brand-cyan)] transition">Opiniones</a>
+          <a href="#sobre-nosotros" class="text-sm font-medium hover:text-[var(--brand-cyan)] transition">Nosotros</a>
+          <a href="#contacto" class="rounded-full border border-white/15 px-4 py-2 text-sm hover:bg-white/10 transition">Acceder</a>
+          <a href="#contacto" class="rounded-full bg-[var(--brand-cyan)] text-black px-4 py-2 text-sm font-semibold hover:brightness-110 transition">Inscribirme</a>
+        </nav>
+
+        <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 hover:bg-white/10" aria-label="Abrir menú">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden pb-6">
+        <div class="mb-4">
+          <input type="search" placeholder="¿Qué quieres aprender?" class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-4 text-sm placeholder-white/60 outline-none focus:border-[var(--brand-cyan)] focus:bg-white/10">
+        </div>
+
+        <details class="group rounded-lg bg-white/5 border border-white/10 mb-2 overflow-hidden">
+          <summary class="flex items-center justify-between px-3 py-2 cursor-pointer select-none">
+            <span>Cursos</span>
+            <svg class="h-5 w-5 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-3 pb-3 space-y-2" data-accordion-content>
+            <details class="rounded-md bg-white/5">
+              <summary class="flex items-center justify-between px-3 py-2 cursor-pointer">Datos
+                <svg class="h-4 w-4 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-3 pb-2 space-y-1 text-sm" data-accordion-content>
+                <a href="analisis-de-datos-con-python.html" class="block hover:text-[var(--brand-cyan)]">Análisis de datos con Python</a>
+                <a href="dashboard-con-power-bi.html" class="block hover:text-[var(--brand-cyan)]">Dashboard con Power BI</a>
+                <a href="excel-para-analisis-de-datos.html" class="block hover:text-[var(--brand-cyan)]">Excel para análisis de datos</a>
+              </div>
+            </details>
+
+            <details class="rounded-md bg-white/5">
+              <summary class="flex items-center justify-between px-3 py-2 cursor-pointer">Programación
+                <svg class="h-4 w-4 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-3 pb-2 space-y-1 text-sm" data-accordion-content>
+                <a href="introduccionalaprogramacion.html" class="block hover:text-[var(--brand-cyan)]">Introducción a programación</a>
+                <a href="python-desde-cero.html" class="block hover:text-[var(--brand-cyan)]">Python desde cero</a>
+                <a href="python-developer.html" class="block hover:text-[var(--brand-cyan)]">Python Developer</a>
+                <a href="back-end-developer.html" class="block hover:text-[var(--brand-cyan)]">Back End Developer</a>
+                <a href="programacion-web.html" class="block hover:text-[var(--brand-cyan)]">Programación Web</a>
+                <a href="full-stack.html" class="block hover:text-[var(--brand-cyan)]">Full Stack</a>
+              </div>
+            </details>
+
+            <details class="rounded-md bg-white/5">
+              <summary class="flex items-center justify-between px-3 py-2 cursor-pointer">Soft Skills
+                <svg class="h-4 w-4 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-3 pb-2 space-y-1 text-sm" data-accordion-content>
+                <a href="coaching-educativo.html" class="block hover:text-[var(--brand-cyan)]">Coaching Educativo</a>
+                <a href="desarrollo-personal.html" class="block hover:text-[var(--brand-cyan)]">Desarrollo Personal</a>
+                <a href="comunicacion-efectiva.html" class="block hover:text-[var(--brand-cyan)]">Comunicación Efectiva</a>
+                <a href="confeccion-de-cv-efectivo.html" class="block hover:text-[var(--brand-cyan)]">Confección de CV Efectivo</a>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <a href="#opiniones" class="block rounded-lg px-3 py-2 hover:bg-white/10">Opiniones</a>
+        <a href="#sobre-nosotros" class="block rounded-lg px-3 py-2 hover:bg-white/10">Nosotros</a>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <a href="#contacto" class="rounded-lg px-3 py-2 border border-white/15 text-center hover:bg-white/10">Acceder</a>
+          <a href="#contacto" class="rounded-lg px-3 py-2 bg-[var(--brand-cyan)] text-black font-semibold text-center hover:brightness-110">Inscribirme</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-text">
+        <h1 class="font-poppins">
+          <span class="highlight-cyan">APRENDÉ</span>, CRECÉ Y POTENCIÁ<br/>
+          TU FUTURO CON NUESTROS<br/>
+          CURSOS <span class="highlight-cyan">ONLINE</span> Y EN <span class="highlight">VIVO</span>
+        </h1>
+        <p class="subtext">Formación accesible, aplicable y con acompañamiento.</p>
+        <div class="cta-buttons">
+          <a href="#contacto" class="btn btn-primary">Empezá ahora</a>
+          <a href="#sobre-nosotros" class="btn btn-secondary">Conocé más</a>
+        </div>
+      </div>
+
+      <div class="hero-img">
+        <picture>
+          <source type="image/avif"
+                  srcset="img/Logo Cursos/Codey_220.avif 220w, img/Logo Cursos/Codey_330.avif 330w, img/Logo Cursos/Codey_520.avif 520w"
+                  sizes="(min-width: 1024px) 520px, (min-width: 768px) 440px, 320px" />
+          <source type="image/webp"
+                  srcset="img/Logo Cursos/Codey_220.webp 220w, img/Logo Cursos/Codey_330.webp 330w, img/Logo Cursos/Codey_520.webp 520w"
+                  sizes="(min-width: 1024px) 520px, (min-width: 768px) 440px, 320px" />
+          <img
+            src="img/Logo Cursos/Codey!!.png"
+            alt="Codey"
+            width="520" height="650"
+            loading="lazy" decoding="async" fetchpriority="low"
+          />
+        </picture>
+      </div>
+    </section>
+  </main>
+
+  <!-- QUIÉNES SOMOS -->
+  <section id="sobre-nosotros" class="py-16 bg-[var(--brand-navy-2)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">¿Quiénes somos?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div class="order-2 md:order-1 md:col-span-1">
+          <img src="img/Logo Cursos/san.png" alt="E-Academy Codey pensando" class="w-full h-auto rounded-xl object-cover">
+        </div>
+        <div class="order-1 md:order-2 md:col-span-2 space-y-5 text-white/90 leading-relaxed">
+          <p>En E-ACADEMY creemos que la educación tecnológica debe ser accesible, práctica y orientada al futuro.</p>
+          <p>Nuestra misión es formar a la próxima generación de desarrolladores y profesionales digitales a través de programas de aprendizaje diseñados para responder a las demandas reales del mercado laboral.</p>
+          <p>Combinamos bases teóricas, proyectos prácticos y acompañamiento constante para aplicar lo aprendido de inmediato.</p>
+          <div class="pt-4">
+            <p class="text-xl font-bold">Sandra Ortellado</p>
+            <p class="text-base text-white/70">Coordinadora Académica</p>
+            <a href="https://ar.linkedin.com/in/sandra-ortellado" target="_blank" class="text-[var(--brand-cyan)] hover:underline">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURSOS -->
+  <section id="cursos" class="py-16 bg-[var(--brand-navy-2)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12">Nuestros cursos actuales</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-6 text-left shadow-md">
+          <h3 class="text-xl font-bold">Introducción a la Programación</h3>
+          <p class="text-sm text-white/60 mt-1">4 semanas</p>
+          <p class="text-3xl font-extrabold text-yellow-300 mt-3 mb-4">$35.000 ARS</p>
+          <p class="text-white/80 mb-5">Aprendé desde cero a programar.</p>
+          <button class="rounded-full bg-[var(--brand-accent)] px-5 py-2 font-medium hover:brightness-110 transition">Ver detalles</button>
+        </article>
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-6 text-left shadow-md">
+          <h3 class="text-xl font-bold">Power BI</h3>
+          <p class="text-sm text-white/60 mt-1">4 semanas</p>
+          <p class="text-3xl font-extrabold text-yellow-300 mt-3 mb-4">$55.000 ARS</p>
+          <p class="text-white/80 mb-5">Generá reportes interactivos.</p>
+          <button class="rounded-full bg-[var(--brand-accent)] px-5 py-2 font-medium hover:brightness-110 transición">Ver detalles</button>
+        </article>
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-6 text-left shadow-md">
+          <h3 class="text-xl font-bold">Python desde cero</h3>
+          <p class="text-sm text-white/60 mt-1">4 semanas</p>
+          <p class="text-3xl font-extrabold text-yellow-300 mt-3 mb-4">$65.000 ARS</p>
+          <p class="text-white/80 mb-5">Dominá Python desde el principio.</p>
+          <button class="rounded-full bg-[var(--brand-accent)] px-5 py-2 font-medium hover:brightness-110 transición">Ver detalles</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPINIONES -->
+  <section id="opiniones" class="py-16 bg-[var(--brand-navy-2)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Lo que dicen nuestros estudiantes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <img src="https://placehold.co/60x60/d1d5db/6b7280?text=J" alt="Johana" class="h-16 w-16 rounded-full object-cover">
+          <div>
+            <p class="text-white/90 font-medium mb-2">"Los cursos de E-Academy me han permitido avanzar mucho en mi carrera en pocos meses. ¡Recomiendo totalmente!"</p>
+            <p class="font-semibold">Johana Sanabria</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <img src="https://placehold.co/60x60/d1d5db/6b7280?text=M" alt="Marcia" class="h-16 w-16 rounded-full object-cover">
+          <div>
+            <p class="text-white/90 font-medium mb-2">"La experiencia fue excelente. Aprendí habilidades prácticas que pude aplicar de inmediato."</p>
+            <p class="font-semibold">Marcia Coceres</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacto" class="bg-[var(--brand-navy-3)] text-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 py-12 border-b border-white/10">
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Plataforma</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="#inicio" class="hover:text-[var(--brand-cyan)]">Inicio</a></li>
+            <li><a href="#sobre-nosotros" class="hover:text-[var(--brand-cyan)]">Acerca de nosotros</a></li>
+            <li><a href="#cursos" class="hover:text-[var(--brand-cyan)]">Cursos</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Certificaciones</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Soporte</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Términos y condiciones</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Políticas de privacidad</a></li>
+            <li><a href="#contacto" class="hover:text-[var(--brand-cyan)]">Contacto</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Centro de ayuda</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Comunidad</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Blog</a></li>
+            <li><a href="#opiniones" class="hover:text-[var(--brand-cyan)]">Testimonios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Newsletter</h4>
+          <p class="text-white/90 mb-4">Recibí descuentos, recursos prácticos y las últimas novedades en tu correo.</p>
+          <form id="newsletter-form" class="flex items-stretch gap-3">
+            <label class="sr-only" for="nl-email">Email</label>
+            <input id="nl-email" name="email" type="email" required placeholder="Ingresa tu e-mail" class="min-w-0 flex-1 rounded-xl bg-white text-gray-900 placeholder-gray-400 px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--brand-blue)]"/>
+            <button type="submit" class="shrink-0 inline-flex items-center justify-center w-12 rounded-xl bg-[var(--brand-blue)] hover:brightness-110 focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-blue)] focus:ring-offset-[var(--brand-navy-3)]" aria-label="Suscribirme">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </form>
+          <p id="newsletter-msg" class="mt-2 text-sm text-white/70"></p>
+        </div>
+      </div>
+
+      <div class="py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-white/70 flex items-center gap-2">
+          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/20">&copy;</span>
+          <span>2022 – <span id="copyright-year">2025</span> E-Academy. Todos los derechos reservados.</span>
+        </p>
+        <div class="flex items-center gap-5">
+          <a href="https://www.instagram.com/eacademyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="Instagram"><img src="img/Logo Cursos/instagram-50.png" alt="Instagram" class="h-6 w-6"></a>
+          <a href="https://www.facebook.com/eacademyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="Facebook"><img src="img/Logo Cursos/facebook-nuevo-50.png" alt="Facebook" class="h-6 w-6"></a>
+          <a href="https://www.linkedin.com/company/e-academyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="LinkedIn"><img src="img/Logo Cursos/linkedin-50.png" alt="LinkedIn" class="h-6 w-6"></a>
+          <a href="https://www.youtube.com/@E-Academia" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="YouTube"><img src="img/Logo Cursos/youtube-play-50.png" alt="YouTube" class="h-6 w-6"></a>
+          <a href="https://wa.me/5491140356125?text=Hola%20quiero%20más%20información" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="WhatsApp"><img src="img/Logo Cursos/whatsapp-50.png" alt="WhatsApp" class="h-6 w-6"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const scriptURL='https://script.google.com/macros/s/AKfycbx4A5TNdJRlJC2zF-uvqy9IS6Y0zHa7cwVwJnzatsjc5CkrlinfvkIw_NLW1e9vmvkl8w/exec';
+      const nlForm=document.getElementById('newsletter-form');
+      const nlMsg=document.getElementById('newsletter-msg');
+      if(nlForm&&nlMsg){
+        nlForm.addEventListener('submit',async(e)=>{
+          e.preventDefault();
+          const email=nlForm.email.value.trim();
+          if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){nlMsg.textContent='Ingresá un email válido.';nlMsg.className='mt-2 text-sm text-red-400';return;}
+          nlMsg.textContent='Enviando...';nlMsg.className='mt-2 text-sm text-white/70';
+          try{await fetch(scriptURL,{method:'POST',body:new FormData(nlForm)});nlMsg.textContent='¡Listo! Revisa tu bandeja para confirmar la suscripción.';nlMsg.className='mt-2 text-sm text-green-400';nlForm.reset();}
+          catch(err){nlMsg.textContent='Ocurrió un error. Probá más tarde.';nlMsg.className='mt-2 text-sm text-red-400';console.error(err);}
+        });
+      }
+      const form=document.getElementById('contact-form');const responseMessage=document.getElementById('response-message');
+      if(form&&responseMessage){
+        form.addEventListener('submit',async(e)=>{e.preventDefault();responseMessage.textContent='Enviando...';responseMessage.className='text-white/60';
+          try{await fetch(scriptURL,{method:'POST',body:new FormData(form)});responseMessage.textContent='¡Mensaje enviado, recibirás información en tu email!';responseMessage.className='text-green-400';form.reset();}
+          catch(err){responseMessage.textContent='¡Ocurrió un error! Intenta de nuevo más tarde.';responseMessage.className='text-red-400';console.error(err);}
+        });
+      }
+      const y=document.getElementById('copyright-year'); if(y){y.textContent=new Date().getFullYear();}
+    })();
+    const menuBtn=document.getElementById('menuBtn'); const mobileMenu=document.getElementById('mobileMenu');
+    if(menuBtn&&mobileMenu){menuBtn.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'))}
+    document.querySelectorAll('details').forEach((d)=>{
+      d.addEventListener('toggle',()=>{
+        const c=d.querySelector('[data-accordion-content]'); if(!c) return;
+        const start=d.open?0:c.scrollHeight; const end=d.open?c.scrollHeight:0;
+        c.style.height=start+'px'; c.style.overflow='hidden'; c.style.transition='height 220ms ease';
+        requestAnimationFrame(()=>{c.style.height=end+'px';});
+        c.addEventListener('transitionend',()=>{c.style.height=d.open?'auto':'0px'; if(!d.open)c.style.removeProperty('overflow');},{once:true});
+      },{passive:true});
+    });
+  </script>
+</body>
+</html>
