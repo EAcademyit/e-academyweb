@@ -1,0 +1,507 @@
+<!-- /analisis-de-datos-con-python.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <title>Análisis de datos con Python – E-Academy</title>
+  <style>
+    :root{
+      --brand-navy:#0c1940; --brand-navy-2:#08122c; --brand-navy-3:#0f2342;
+      --brand-cyan:#99cee0; --brand-accent:#244565; --brand-blue:#4666ff;
+      --ok-purple:#8b5cf6; --ok-purple-2:#7c3aed; --ok-green:#22c55e;
+    }
+    html,body{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0b1120;color:#fff}
+
+    /* Dropdown */
+    .dropdown-menu{
+      position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(12px);
+      background:rgba(17,24,39,.98); border:1px solid rgba(255,255,255,.08);
+      padding:1rem; border-radius:.75rem; box-shadow:0 12px 40px rgba(0,0,0,.5);
+      display:flex; gap:2rem; opacity:0; visibility:hidden; transition:all .22s ease; min-width:680px;
+    }
+    .dropdown:hover>.dropdown-menu,.dropdown:focus-within>.dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(6px)}
+    .dropdown-menu a{padding:.25rem 0}
+    details[open]>summary svg{transform:rotate(180deg)}
+    details>summary{list-style:none}
+    details>summary::-webkit-details-marker{display:none}
+
+    /* Header pill */
+    .nav-pill{
+      background: rgba(0,14,53,.90);
+      border:1.5px solid rgba(255,255,255,.14);
+      border-radius:9999px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter:saturate(1.1) blur(8px);
+      -webkit-backdrop-filter:saturate(1.1) blur(8px);
+      padding:10px 14px;
+      transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .nav-pill--scrolled{ background: rgba(0,14,53,.96); border-color: rgba(255,255,255,.28); box-shadow:0 14px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08) }
+
+    /* Hero del curso (mismo fondo que index) */
+    .hero-curso{
+      position:relative; isolation:isolate;
+      background: radial-gradient(900px 400px at 15% 10%, rgba(139,92,246,.15), transparent 60%), url('img/Logo Cursos/Fondo.png');
+      background-size:cover; background-position:center;
+    }
+    .hero-curso::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(2,6,23,.55), rgba(2,6,23,.75));z-index:-1}
+    .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.375rem .75rem;border-radius:9999px;font-weight:700;font-size:.85rem}
+    .chip-level{border:1px solid rgba(255,255,255,.22)}
+
+    .accordion-body{height:0;overflow:hidden;transition:height 220ms ease}
+    .badge-discount{background:#111827;color:#fff;border:1px solid rgba(255,255,255,.12)}
+    .card-rec{border:1px solid rgba(168,85,247,.35)}
+    .sticky-card{position:sticky;top:96px}
+
+    /* Botón volver (por qué: UX rápida para regresar al catálogo) */
+    .btn-back{
+      position:fixed; left:12px; bottom:14px; z-index:60;
+      padding:.6rem 1rem; border-radius:9999px; background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(8px);
+    }
+    .btn-back:hover{background:rgba(255,255,255,.16)}
+  </style>
+</head>
+<body>
+
+  <!-- Volver a cursos -->
+  <a href="index.html#cursos" class="btn-back text-sm font-semibold">← Volver a cursos</a>
+
+  <!-- Header -->
+  <header class="sticky top-3 z-50 bg-transparent">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div id="navPill" class="nav-pill">
+        <div class="flex items-center justify-between gap-3">
+          <a href="index.html#inicio" class="flex items-center gap-3 shrink-0">
+            <img src="img/Logo Cursos/Logo.png" alt="E-Academy" class="h-10 w-auto">
+          </a>
+
+          <div class="hidden lg:flex w-full max-w-md mx-4">
+            <label class="relative w-full">
+              <input type="search" placeholder="¿Qué quieres aprender?" class="w-full rounded-full border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm placeholder-white/60 outline-none focus:border-[var(--brand-cyan)] focus:bg-white/10"/>
+              <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-3 top-2.5 h-5 w-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
+            </label>
+          </div>
+
+          <nav class="hidden md:flex items-center gap-6">
+            <div class="relative dropdown">
+              <button class="text-sm font-medium hover:text-[var(--brand-cyan)] transition focus:outline-none">Cursos</button>
+              <ul class="dropdown-menu">
+                <li class="min-w-[200px]">
+                  <h3 class="text-[var(--brand-cyan)] font-semibold mb-2">Datos</h3>
+                  <a href="analisis-de-datos-con-python.html" class="block hover:text-[var(--brand-cyan)]">Análisis de datos con Python</a>
+                  <a href="dashboard-con-power-bi.html" class="block hover:text-[var(--brand-cyan)]">Dashboard con Power BI</a>
+                  <a href="excel-para-analisis-de-datos.html" class="block hover:text-[var(--brand-cyan)]">Excel para análisis de datos</a>
+                </li>
+                <li class="min-w-[200px]">
+                  <h3 class="text-pink-400 font-semibold mb-2">Programación</h3>
+                  <a href="introduccionalaprogramacion.html" class="block hover:text-[var(--brand-cyan)]">Introducción a programación</a>
+                  <a href="python-desde-cero.html" class="block hover:text-[var(--brand-cyan)]">Python desde cero</a>
+                  <a href="python-developer.html" class="block hover:text-[var(--brand-cyan)]">Python Developer</a>
+                  <a href="back-end-developer.html" class="block hover:text-[var(--brand-cyan)]">Back End Developer</a>
+                  <a href="programacion-web.html" class="block hover:text-[var(--brand-cyan)]">Programación Web</a>
+                  <a href="full-stack.html" class="block hover:text-[var(--brand-cyan)]">Full Stack</a>
+                </li>
+                <li class="min-w-[200px]">
+                  <h3 class="text-red-400 font-semibold mb-2">Soft Skills</h3>
+                  <a href="coaching-educativo.html" class="block hover:text-[var(--brand-cyan)]">Coaching Educativo</a>
+                  <a href="desarrollo-personal.html" class="block hover:text-[var(--brand-cyan)]">Desarrollo Personal</a>
+                  <a href="comunicacion-efectiva.html" class="block hover:text-[var(--brand-cyan)]">Comunicación Efectiva</a>
+                  <a href="confeccion-de-cv-efectivo.html" class="block hover:text-[var(--brand-cyan)]">Confección de CV Efectivo</a>
+                </li>
+              </ul>
+            </div>
+            <a href="index.html#opiniones" class="text-sm font-medium hover:text-[var(--brand-cyan)] transition">Opiniones</a>
+            <a href="index.html#sobre-nosotros" class="text-sm font-medium hover:text-[var(--brand-cyan)] transition">Nosotros</a>
+
+            <span class="hidden lg:block h-6 w-px bg-white/15"></span>
+            <a href="index.html#contacto" class="rounded-full px-4 py-2 text-sm border border-white/15 bg-white/5 hover:bg-white/10 transition">Acceder</a>
+            <a href="index.html#contacto" class="rounded-full px-4 py-2 text-sm bg-[var(--brand-cyan)] text-black font-semibold hover:brightness-110 transition">Inscribirme</a>
+          </nav>
+
+          <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 hover:bg-white/10" aria-label="Abrir menú">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-curso">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <span class="chip bg-[rgba(139,92,246,.18)] text-white border border-[rgba(139,92,246,.35)]">Certificación</span>
+        <h1 class="mt-5 font-poppins text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">Análisis de datos con Python</h1>
+        <div class="mt-4"><span class="chip chip-level text-white/90">Nivel inicial</span></div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#precios" class="rounded-full bg-white text-gray-900 px-6 py-3 font-semibold hover:opacity-90 transition">Comprar</a>
+          <a href="#contenido" class="rounded-full border border-white/20 px-6 py-3 font-semibold hover:bg-white/10 transition">Ver contenidos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro + Bullets -->
+  <section class="py-14 bg-[#0b1025]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div class="space-y-5 text-white/90">
+          <h2 class="text-3xl font-bold">¿Qué es? ¿A quién está dirigido?</h2>
+          <p>Aprendé a analizar, transformar y visualizar datos con <strong>Python</strong>, <strong>Pandas</strong>, <strong>NumPy</strong> y librerías de visualización. Construí reportes y dashboards que respalden decisiones.</p>
+          <p>Incluye proyectos guiados, buenas prácticas y fundamentos de estadística orientados al análisis de datos.</p>
+        </div>
+        <ul class="space-y-4">
+          <li class="flex gap-3">
+            <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(34,197,94,.2)] text-[var(--ok-green)]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg>
+            </span>
+            <span class="text-white/90">Profesionales y estudiantes que deseen iniciar en <strong>Data Analytics</strong>.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(34,197,94,.2)] text-[var(--ok-green)]"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg></span>
+            <span class="text-white/90">Equipos que buscan automatizar reportes y análisis repetitivos.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(34,197,94,.2)] text-[var(--ok-green)]"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg></span>
+            <span class="text-white/90">Personas que quieran dominar <strong>Jupyter</strong>, <strong>Pandas</strong> y visualizaciones.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requerimientos -->
+  <section class="py-16 bg-[#0a0f23]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center mb-10">Requerimientos académicos</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="mb-3 flex justify-center">
+            <svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M21 4H3a1 1 0 00-1 1v11a1 1 0 001 1h7v2H8v2h8v-2h-2v-2h7a1 1 0 001-1V5a1 1 0 00-1-1zm-1 11H4V6h16v9z"/></svg>
+          </div>
+          <p class="font-semibold">Navegación web y SO básico</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="mb-3 flex justify-center">
+            <svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7a2 2 0 00-2 2v14l7-3 7 3V5a2 2 0 00-2-2z"/></svg>
+          </div>
+          <p class="font-semibold">Aritmética y estadística básica</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="mb-3 flex justify-center">
+            <svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v20M2 9h20"/></svg>
+          </div>
+          <p class="font-semibold">Pensamiento lógico y descomposición</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+          <div class="mb-3 flex justify-center">
+            <svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>
+          </div>
+          <p class="font-semibold">Interés por los datos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenidos + Sidebar -->
+  <section id="contenido" class="py-16 bg-[#0b1025]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center mb-12">¿Qué vas a aprender?</h3>
+      <div class="grid lg:grid-cols-[1fr,360px] gap-8 items-start">
+        <div class="space-y-3">
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>Entorno y fundamentos de Python</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              Instalación, Jupyter, sintaxis básica, tipos, funciones, módulos, entornos virtuales.
+            </div>
+          </details>
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>Pandas y NumPy para análisis</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              Series y DataFrames, limpieza, joins, groupby, ventanas, rendimiento.
+            </div>
+          </details>
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>Visualización (Matplotlib/Seaborn)</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              Gráficos básicos/avanzados, estilos, storytelling y exportación.
+            </div>
+          </details>
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>EDA: exploración y limpieza</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              Valores faltantes, outliers, imputación, normalización y preparación de datasets.
+            </div>
+          </details>
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>Introducción a SQL para analistas</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              SELECT, JOIN, agregaciones, subconsultas y conexión Python ↔ SQL.
+            </div>
+          </details>
+          <details class="group rounded-xl bg-white/5 border border-white/10">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+              <span>Proyecto: reporte analítico</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="accordion-body px-4 pb-4 text-white/80">
+              Dataset real, análisis end-to-end y presentación de insights.
+            </div>
+          </details>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sticky-card rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div class="flex items-center gap-2">
+            <button id="tabInfo" class="flex-1 rounded-full px-3 py-1.5 text-sm font-semibold bg-[rgba(139,92,246,.15)] border border-[rgba(139,92,246,.45)]">Información</button>
+            <button id="tabComu" class="flex-1 rounded-full px-3 py-1.5 text-sm font-semibold hover:bg-white/10">Comunidad</button>
+          </div>
+          <div id="infoPane" class="mt-4 space-y-4 text-white/90">
+            <div class="flex items-center gap-3">
+              <svg class="h-5 w-5 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7v2h10V3zM5 7h14v14H5V7zm2 2v10h10V9H7z"/></svg>
+              <div><p class="font-semibold">Horas de contenido</p><p class="text-white/70 text-sm">60 horas</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="h-5 w-5 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8V4l8 8-8 8v-4H4V8z"/></svg>
+              <div><p class="font-semibold">Tiempo estimado</p><p class="text-white/70 text-sm">8 semanas</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="h-5 w-5 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 7v7c0 5 4 7 9 8 5-1 9-3 9-8V7l-9-5z"/></svg>
+              <div><p class="font-semibold">Acceso a la plataforma</p><p class="text-white/70 text-sm">12 meses</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="h-5 w-5 opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6H4v12h16zM2 4h20v2H2z"/></svg>
+              <div><p class="font-semibold">Modalidad</p><p class="text-white/70 text-sm">On Demand</p></div>
+            </div>
+            <a href="#" class="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-white text-gray-900 font-semibold py-2.5 hover:opacity-90">Descargar programa</a>
+          </div>
+          <div id="comuPane" class="hidden mt-4 space-y-3 text-white/90">
+            <p>Acceso a comunidad de estudiantes y mentores, workshops y soporte por Discord.</p>
+            <ul class="list-disc pl-6 text-white/80">
+              <li>Reuniones mensuales de networking</li>
+              <li>Canales por stack (Python, SQL, BI)</li>
+              <li>Bolsa de proyectos y referidos</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Precios -->
+  <section id="precios" class="py-16 bg-[#0a0f23]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mx-auto text-center">
+        <h3 class="text-3xl font-bold">Tu llave de acceso al mundo digital</h3>
+        <p class="text-white/70 mt-2">Elegí la certificación o la membresía que incluye todos los cursos.</p>
+      </div>
+
+      <div class="mt-10 grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-white/12 bg-white/5 p-6">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xl font-bold">Certificación <span class="text-white/80">Análisis de datos con Python</span></h4>
+            <span class="badge-discount rounded-full px-2 py-1 text-xs font-bold">30% OFF</span>
+          </div>
+          <div class="mt-4 text-sm text-white/70 space-y-1">
+            <p>Total: ARS 120.000</p>
+            <p>Ahorás: ARS 36.000</p>
+          </div>
+          <p class="text-3xl font-extrabold text-white mt-3 mb-4">ARS 84.000</p>
+          <a href="checkout-mercadopago.html" class="inline-flex rounded-full border border-white/20 px-5 py-2 font-medium hover:bg-white/10 transition">Comprar</a>
+        </div>
+
+        <div class="rounded-2xl card-rec bg-white/5 p-0 overflow-hidden">
+          <div class="bg-[var(--ok-purple)] text-white px-6 py-3 text-sm font-bold">Recomendado</div>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xl font-bold">Digital One Plus</h4>
+              <span class="rounded-full px-2 py-1 text-xs font-bold bg-[rgba(139,92,246,.12)] border border-[rgba(139,92,246,.45)]">50% OFF</span>
+            </div>
+            <p class="text-white/80 mt-2 text-sm">Incluye este curso + todos los de programación, IA, negocios y soft skills.</p>
+            <div class="mt-4 text-sm text-white/70 space-y-1">
+              <p>Total anual: ARS 898.560</p>
+              <p>Ahorás: ARS 449.280</p>
+            </div>
+            <p class="text-3xl font-extrabold text-white mt-3 mb-1">ARS 37.440</p>
+            <p class="text-xs text-white/60 mb-4">Total final: ARS 449.280</p>
+            <a href="index.html#contacto" class="inline-flex rounded-full bg-[var(--ok-purple-2)] hover:brightness-110 px-5 py-2 font-semibold">Suscribirme</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificado -->
+  <section class="py-16 bg-[#0b1025]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-4">
+          <h3 class="text-3xl font-bold">Nuestro certificado</h3>
+          <p class="text-white/90">Al finalizar podrás generar análisis reproducibles y comunicar hallazgos con claridad.</p>
+          <ul class="space-y-3">
+            <li class="flex gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(34,197,94,.2)] text-[var(--ok-green)]"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg></span>
+              <span>Certificación de finalización del curso.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(34,197,94,.2)] text-[var(--ok-green)]"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg></span>
+              <span>No es una certificación académica o profesional.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-white/10 bg-white/5">
+          <img src="img/certificado-data-analyst.png" alt="Certificado" class="w-full h-auto">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-[#080e22]">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center mb-10">Preguntas frecuentes</h3>
+      <div class="space-y-3">
+        <details class="rounded-xl bg-[rgba(255,255,255,.03)] border border-[rgba(255,255,255,.08)]">
+          <summary class="px-4 py-3 cursor-pointer flex items-center justify-between">
+            <span>¿Necesito experiencia previa?</span>
+            <svg class="h-5 w-5 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="accordion-body px-4 pb-4 text-white/80">No, comenzamos desde cero y nivelamos.</div>
+        </details>
+        <details class="rounded-xl bg-[rgba(255,255,255,.03)] border border-[rgba(255,255,255,.08)]">
+          <summary class="px-4 py-3 cursor-pointer flex items-center justify-between">
+            <span>¿Puedo cursar a mi ritmo?</span>
+            <svg class="h-5 w-5 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="accordion-body px-4 pb-4 text-white/80">Sí, el acceso es On Demand por 12 meses.</div>
+        </details>
+        <details class="rounded-xl bg-[rgba(255,255,255,.03)] border border-[rgba(255,255,255,.08)]">
+          <summary class="px-4 py-3 cursor-pointer flex items-center justify-between">
+            <span>¿Hay soporte o comunidad?</span>
+            <svg class="h-5 w-5 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="accordion-body px-4 pb-4 text-white/80">Sí, tendrás acceso a comunidad, workshops y mentorías grupales.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contacto" class="bg-[var(--brand-navy-3)] text-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 py-12 border-b border-white/10">
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Plataforma</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="index.html#inicio" class="hover:text-[var(--brand-cyan)]">Inicio</a></li>
+            <li><a href="index.html#sobre-nosotros" class="hover:text-[var(--brand-cyan)]">Acerca de nosotros</a></li>
+            <li><a href="index.html#cursos" class="hover:text-[var(--brand-cyan)]">Cursos</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Certificaciones</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Soporte</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Términos y condiciones</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Políticas de privacidad</a></li>
+            <li><a href="#contacto" class="hover:text-[var(--brand-cyan)]">Contacto</a></li>
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Centro de ayuda</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Comunidad</h4>
+          <ul class="space-y-3 text-white/90">
+            <li><a href="#" class="hover:text-[var(--brand-cyan)]">Blog</a></li>
+            <li><a href="index.html#opiniones" class="hover:text-[var(--brand-cyan)]">Testimonios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs tracking-[.14em] text-[var(--brand-cyan)] font-semibold uppercase mb-4">Newsletter</h4>
+          <p class="text-white/90 mb-4">Recibí descuentos, recursos prácticos y novedades en tu correo.</p>
+          <form id="newsletter-form" class="flex items-stretch gap-3">
+            <label class="sr-only" for="nl-email">Email</label>
+            <input id="nl-email" name="email" type="email" required placeholder="Ingresa tu e-mail" class="min-w-0 flex-1 rounded-xl bg-white text-gray-900 placeholder-gray-400 px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--brand-blue)]"/>
+            <button type="submit" class="shrink-0 inline-flex items-center justify-center w-12 rounded-xl bg-[var(--brand-blue)] hover:brightness-110 focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-blue)] focus:ring-offset-[var(--brand-navy-3)]" aria-label="Suscribirme">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </form>
+          <p id="newsletter-msg" class="mt-2 text-sm text-white/70"></p>
+        </div>
+      </div>
+
+      <div class="py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-white/70 flex items-center gap-2">
+          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/20">&copy;</span>
+          <span>2022 – <span id="copyright-year">2025</span> E-Academy. Todos los derechos reservados.</span>
+        </p>
+        <div class="flex items-center gap-5">
+          <a href="https://www.instagram.com/eacademyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="Instagram"><img src="img/Logo Cursos/instagram-50.png" alt="Instagram" class="h-6 w-6"></a>
+          <a href="https://www.facebook.com/eacademyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="Facebook"><img src="img/Logo Cursos/facebook-nuevo-50.png" alt="Facebook" class="h-6 w-6"></a>
+          <a href="https://www.linkedin.com/company/e-academyit/" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="LinkedIn"><img src="img/Logo Cursos/linkedin-50.png" alt="LinkedIn" class="h-6 w-6"></a>
+          <a href="https://www.youtube.com/@E-Academia" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="YouTube"><img src="img/Logo Cursos/youtube-play-50.png" alt="YouTube" class="h-6 w-6"></a>
+          <a href="https://wa.me/5491140356125?text=Hola%20quiero%20más%20información" target="_blank" class="opacity-80 hover:opacity-100 transition" aria-label="WhatsApp"><img src="img/Logo Cursos/whatsapp-50.png" alt="WhatsApp" class="h-6 w-6"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header pill
+    const navPill=document.getElementById('navPill');
+    function updatePillOnScroll(){ if(!navPill) return; navPill.classList.toggle('nav-pill--scrolled', window.scrollY>8); }
+    updatePillOnScroll(); window.addEventListener('scroll', updatePillOnScroll, {passive:true});
+
+    // Acordeón suave
+    document.querySelectorAll('details').forEach((d)=>{
+      const body=d.querySelector('.accordion-body'); if(!body) return;
+      d.addEventListener('toggle',()=>{
+        const start=d.open?0:body.scrollHeight; const end=d.open?body.scrollHeight:0;
+        body.style.height=start+'px'; body.style.overflow='hidden';
+        requestAnimationFrame(()=>{body.style.height=end+'px';});
+        body.addEventListener('transitionend',()=>{body.style.height=d.open?'auto':'0px'; if(!d.open) body.style.removeProperty('overflow');},{once:true});
+      },{passive:true});
+    });
+
+    // Tabs sidebar
+    const tabInfo=document.getElementById('tabInfo');
+    const tabComu=document.getElementById('tabComu');
+    const infoPane=document.getElementById('infoPane');
+    const comuPane=document.getElementById('comuPane');
+    function setTab(which){
+      const isInfo=which==='info';
+      infoPane.classList.toggle('hidden', !isInfo);
+      comuPane.classList.toggle('hidden', isInfo);
+      tabInfo.classList.toggle('bg-[rgba(139,92,246,.15)]', isInfo);
+      tabInfo.classList.toggle('border', isInfo);
+      tabInfo.classList.toggle('border-[rgba(139,92,246,.45)]', isInfo);
+      tabComu.classList.toggle('bg-[rgba(139,92,246,.15)]', !isInfo);
+    }
+    tabInfo?.addEventListener('click',()=>setTab('info'));
+    tabComu?.addEventListener('click',()=>setTab('comu'));
+
+    document.getElementById('copyright-year')?.replaceChildren(new Date().getFullYear());
+  </script>
+</body>
+</html>
